@@ -7,6 +7,11 @@
 
 3.Change to use Artyom to do voice recognition instead of python backend to control selection or launch items
 
+
+How to use?
+
+Open controlx2.html
+
 Copyright is reserved
 
 Designed by Ho Yeung, Lee
