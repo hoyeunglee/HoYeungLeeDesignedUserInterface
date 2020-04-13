@@ -1,0 +1,238 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.interactjs.io/v1.3.4/interact.min.js"></script>
+<script>
+// target elements with the "draggable" class
+interact('.draggable')
+  .draggable({
+    // enable inertial throwing
+    inertia: true,
+    // keep the element within the area of it's parent
+    restrict: {
+      restriction: "parent",
+      endOnly: true,
+      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+    },
+    // enable autoScroll
+    autoScroll: true,
+
+    // call this function on every dragmove event
+    onmove: dragMoveListener,
+    // call this function on every dragend event
+    onend: function (event) {
+      var textEl = event.target.querySelector('p');
+    }
+  });
+
+
+
+  function dragMoveListener (event) {
+    var target = event.target,
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+    // translate the element
+    target.style.webkitTransform =
+    target.style.transform =
+      'translate(' + x + 'px, ' + y + 'px)';
+
+    // update the posiion attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+  }
+
+  // this is used later in the resizing and gesture demos
+  window.dragMoveListener = dragMoveListener;
+
+$.change1 = function() {
+if ($('#d3').width="25%"){
+    $('#d3').animate({width: "0%",height: "0%"});
+}
+if ($('#d2').width="25%"){
+    $('#d2').animate({width: "0%",height: "0%"});
+}
+if ($('container').width<="100%"){
+    $('container').animate({width: "100%",height: "100%"});
+}
+if ($('#d1').width=100){
+    $('#d1').animate({width: "1400px",height: "700px"});
+}
+};
+
+$.change2 = function() {
+if ($('#d1').width="25%"){
+    $('#d1').animate({width: "0%",height: "0%"});
+}
+if ($('#d3').width="25%"){
+    $('#d3').animate({width: "0%",height: "0%"});
+}
+if ($('container').width<="100%"){
+    $('container').animate({width: "100%",height: "100%"});
+}
+if ($('#d2').width=100){
+    $('#d2').animate({width: "1650px",height: "700px"});
+}
+};
+
+$.change3 = function() {
+if ($('#d1').width="25%"){
+    $('#d1').animate({width: "0%",height: "0%"});
+}
+if ($('#d2').width="25%"){
+    $('#d2').animate({width: "0%",height: "0%"});
+}
+if ($('container').width<="100%"){
+    $('container').animate({width: "100%",height: "100%"});
+}
+if ($('#d3').width=100){
+    $('#d3').animate({width: "1650px",height: "700px"});
+}
+};
+
+$.changeback = function() {
+$('container').animate({width: "100%",height: "100%"});
+$('#d1').animate({width: "500px",height: "350px"});
+$('#d2').animate({width: "500px",height: "350px"});
+$('#d3').animate({width: "500px",height: "350px"});
+$('#d1').attr("src","C:\Users\martlee2\Downloads\sample1.jpg");
+$('#d2').attr("src","C:\Users\martlee2\Downloads\sample2.jpg");
+$('#d3').attr("src","C:\Users\martlee2\Downloads\sample3.jpg");
+};
+
+
+function change1html() {
+            $.change1();
+};
+function change2html() {
+            $.change2();
+};
+function change3html() {
+            $.change3();
+};
+function changebackhtml() {
+            $.changeback();
+};
+
+</script>
+<style>
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.container > div {
+  flex: 1; /*grow*/
+}
+.container div{
+    position: relative;
+    width: 500px;
+    height: 360px;
+    background-color: black;
+}
+#d1{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  display : block;
+  width: "25%";
+  height: "25%";
+  margin: 5px auto;
+}
+#d2{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  display : block;
+  width: "25%";
+  height: "25%";
+  margin: 5px auto;
+}
+#d3{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  display : block;
+  width: "25%";
+  height: "25%";
+  margin: 5px auto;
+}
+</style>
+  <head>
+    <title>
+        webpage
+      </title>
+      <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
+      <link rel="stylesheet" href="magic.css">
+</head>
+  <body style="background-color:black;text-align:center">
+
+         <script>
+            var ws = new WebSocket("ws://127.0.0.1:5679/"),
+            messages = document.createElement('ul');
+            var yValue2;
+            var currentvalue = 0;
+            var ycurrentwindow = "0"
+            ws.onmessage = function (event) {
+                var wholedata = event.data;  
+                var res2 = wholedata;
+                yValue2 = res2;
+                if (yValue2 == 0 || yValue2 == "0"){
+                 document.getElementById('d1').style.borderColor = "pink";
+                 document.getElementById('d2').style.borderColor = "#20C20E";
+                 document.getElementById('d3').style.borderColor = "#20C20E";
+                 ycurrentwindow = yValue2;
+                }
+                if (yValue2 == 1 || yValue2 == "1"){
+                 document.getElementById('d2').style.borderColor = "pink";
+                 document.getElementById('d1').style.borderColor = "#20C20E";
+                 document.getElementById('d3').style.borderColor = "#20C20E";
+                 ycurrentwindow = yValue2;
+                }
+                if (yValue2 == 2 || yValue2 == "2"){
+                 document.getElementById('d3').style.borderColor = "pink";
+                 document.getElementById('d1').style.borderColor = "#20C20E";
+                 document.getElementById('d2').style.borderColor = "#20C20E";
+                 ycurrentwindow = yValue2;
+                }
+                if ((yValue2 == 100 || yValue2 == "100") && ycurrentwindow == "0"){
+                  change1html();
+                }
+                if ((yValue2 == 100 || yValue2 == "100") && ycurrentwindow == "1"){
+                  change2html();
+                }
+                if ((yValue2 == 100 || yValue2 == "100") && ycurrentwindow == "2"){
+                  change3html();
+                }
+                if ((yValue2 == 99 || yValue2 == "99")){
+                  changebackhtml();
+                }
+            };
+            document.body.appendChild(messages);
+        </script>
+
+   <div class="container" style="width:100%; height:90%">
+   <div id="d1"  class="draggable">
+      <p><img src="C:\Users\martlee2\Downloads\sample1.jpg" style="width:100%; height:90%"  onmouseover="change1html()"></a></p>
+   </div>
+   <div id="d2"  class="draggable">
+      <p><img src="C:\Users\martlee2\Downloads\sample2.png" style="width:100%; height:90%"  onmouseover="change2html()"></a></p>
+   </div>
+   <div id="d3"  class="draggable">
+      <p><img src="C:\Users\martlee2\Downloads\sample3.jpg" style="width:100%; height:90%"  onmouseover="changebackhtml()"></a></p>
+   </div>
+   <br style="clear: left;" />
+   </div>
+    </body>
+  </html>

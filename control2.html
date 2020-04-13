@@ -1,0 +1,419 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.interactjs.io/v1.3.4/interact.min.js"></script>
+<script>
+// target elements with the "draggable" class
+interact('.draggable')
+  .draggable({
+    // enable inertial throwing
+    inertia: true,
+    // keep the element within the area of it's parent
+    restrict: {
+      restriction: "parent",
+      endOnly: true,
+      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+    },
+    // enable autoScroll
+    autoScroll: true,
+
+    // call this function on every dragmove event
+    onmove: dragMoveListener,
+    // call this function on every dragend event
+    onend: function (event) {
+      var textEl = event.target.querySelector('p');
+
+      textEl && (textEl.textContent =
+        'moved a distance of '
+        + (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
+                     Math.pow(event.pageY - event.y0, 2) | 0))
+            .toFixed(2) + 'px');
+    }
+  });
+
+  function dragMoveListener (event) {
+    var target = event.target,
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+    // translate the element
+    target.style.webkitTransform =
+    target.style.transform =
+      'translate(' + x + 'px, ' + y + 'px)';
+
+    // update the posiion attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+  }
+
+  // this is used later in the resizing and gesture demos
+  window.dragMoveListener = dragMoveListener;
+
+var x = 0;
+var z1 = 0;
+var z2 = 0;
+$(document).ready(function() {
+$('#d1').hover(function(){
+if ($('#d1').width=100){
+    $('#d1').animate({width: "1400px",height: "600px"});
+    chg5();
+}
+}, function(){
+if ($('#d2').width=1400){
+    $('#d2').animate({width: "100px",height: "100px"});
+    z1 = 0;
+}
+});
+
+$('#d2').hover(function(){
+if ($('#d2').width=100){
+    $('#d2').animate({width: "1400px",height: "600px"});
+    var snd = new Audio("expand.wav");
+    snd.play();
+setTimeout(
+  function() 
+  {
+    chg7();
+  }, 2000);
+}
+}, function(){
+if ($('#d1').width=1400){
+    $('#d1').animate({width: "100px",height: "100px"});
+    z2 = 0;
+}
+});
+});
+
+
+function messagebox()
+{
+if (document.getElementById("d3").style.width<1400){
+  document.getElementById("d3").style.width="1400px";
+  document.getElementById("d3").style.height="600px";
+  document.getElementById("d3").style.opacity=0.8;
+  document.getElementById("d3").style.transitionDuration = "2s";
+  x = 0;
+}
+}
+
+
+function chg5()
+{
+if (document.getElementById("d1").style.width=1400){
+if (z1 == 0){
+  document.getElementById("d1").style.transitionDuration = "3s";
+  document.getElementById("d1").innerHTML = '<embed src="file:///C:/Users/martlee2/Documents/magic-master/magic-master/buttoncontrol.html" style="width:100%; height:100%; overflow: hidden; border:none;transition:opacity 3s ease-in-out;"></embed>'
+  document.getElementById("h1tag").innerHTML = '';
+  var snd = new Audio("expand.wav");
+  snd.play();
+  z1 = 1;
+  z2 = 0;
+}
+}
+}
+
+var txt = 'Hello Martin Lee'; /* The text */
+var i = 0;
+var speed = 50; /* The speed/duration of the effect in milliseconds */
+
+function chg7()
+{
+if (document.getElementById("d2").style.width=1400){
+if (z2 == 0){
+  document.getElementById("d2").style.transitionDuration = "3s";
+  //document.getElementById("d2").innerHTML = '<embed src="file:///C:/Users/martlee2/Documents/temp-plot.html" style="width:100%; height:100%; overflow: hidden; border:none;transition:opacity 3s ease-in-out;"></embed>'
+  //document.getElementById("h1tag").innerHTML = 'hello Martin Lee';
+  //document.getElementById("d2").classList.add('typewriter');
+  txt = 'Hello Martin Lee';
+  typeWriter();
+  z2 = 1;
+  z1 = 0;
+}
+}
+}
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("h1tag").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+
+</script>
+<style>
+
+#d1{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  height:100px;
+  width:100px;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+}
+#d2{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  height:100px;
+  width:100px;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+}
+
+#d3{
+  background:transparent;
+  border-color:pink;
+  font-size:large;
+  height:0px;
+  width:0px;
+  top:200px;
+  left:500px;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+}
+body {
+  margin: 0;
+  background: black;
+  color: black;
+  font: 18px/27px 'Helvetic', sans-serif;
+}
+
+
+/*
+  Menu
+*/
+nav#slide-menu {
+  position: fixed;
+  top: 0;
+  left: -100px;
+  bottom: 0;
+  display: block;
+  float: left;
+  width: 100%;
+  max-width: 284px;
+  height: 100%;
+  -moz-transition: all 300ms;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+}
+nav#slide-menu > ul {
+  display: block;
+  margin: 40px;
+  padding: 0;
+  list-style: none;
+  opacity: 0.5;
+  -moz-transition: all 300ms;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+}
+nav#slide-menu > ul li {
+  color: #dfe5eb;
+  padding: 6px 0;
+  cursor: pointer;
+}
+nav#slide-menu > ul li:hover {
+  color: #59e9df;
+}
+nav#slide-menu > ul li:before {
+  font-family: "ico";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  color: #59e9df;
+  margin-right: 12px;
+  text-align: center;
+  font-variant: normal;
+  font-size: 0.75em;
+  text-transform: none;
+  line-height: 1em;
+}
+
+nav#slide-menu > ul li i{
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  color: #59e9df;
+  margin-right: 12px;
+  text-align: center;
+  font-variant: normal;
+  font-size: 0.75em;
+  text-transform: none;
+  line-height: 1em;
+}
+nav#slide-menu > ul li.sep {
+  margin-top: 7px;
+  padding-top: 14px;
+  border-top: 1px solid #6b7b8d;
+}
+
+.container.menu-active nav#slide-menu {
+  left: 0px;
+}
+
+.container.menu-active nav#slide-menu ul {
+  left: 0px;
+  opacity: 1;
+}
+
+/*
+  Content
+*/
+div#content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 60px;
+  overflow: scroll;
+  background: black;
+  border-radius: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-box-shadow: -3px 0 6px #4a5562;
+  -webkit-box-shadow: -3px 0 6px #4a5562;
+  box-shadow: -3px 0 6px #4a5562;
+  -moz-transition: all 300ms;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+}
+div#content div.menu-trigger {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 36px;
+  height: 36px;
+  background: black;
+  cursor: pointer;
+  border-radius: 5px;
+  -moz-transition: all 300ms;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+}
+div#content div.menu-trigger i {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  color: black;
+  font-style: normal;
+  font-size: 1.2em;
+  font-weight: normal;
+  font-variant: normal;
+  text-align: center;
+  text-transform: none;
+  line-height: 36px;
+}
+div#content div.menu-trigger:hover {
+  background: #556270;
+}
+div#content div.menu-trigger i:hover {
+  color: #fcfeff;
+}
+
+.container.menu-active div#content {
+  left: 284px;
+  border-radius: 7px 0 0 7px;
+}
+
+.container.menu-active div#content .menu-trigger {
+  left: 294px;
+}
+
+/*End CSS example*/
+
+/*Other CSS*/
+body{
+  font-family: helvetica;
+  font-size: 1.2em;
+}
+
+.center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position:relative;
+  width: 40%;
+}
+
+.container{ 
+   margin-top: 50px; 
+  width: 50%;
+}
+</style>
+  <head>
+    <title>
+        webpage
+      </title>
+      <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
+      <link rel="stylesheet" href="magic.css">
+</head>
+  <body style="background-color:black;text-align:center">
+<div class="container center">
+     <!-- Navigation -->
+    <nav id="slide-menu">
+      <ul>
+        <li class="timeline">
+          <i class="fa fa-bar-chart"></i>
+          <span>Timeline</span>
+        </li>
+        <li class="events">
+          <i class="fa fa-flag"></i>
+          <span>Events</span>
+        </li>
+        <li class="calendar">
+          <i class="fa fa-calendar-o"></i>
+          <span>Calendar</span>
+        </li>
+        <li class="sep settings">
+          <i class="fa fa-gear"></i>
+          <span>Settings</span>
+        </li>
+        <li class="logout">
+          <i class="fa fa-close"></i>
+          <span>Logout</span>
+        </li>
+      </ul>
+    </nav>
+    <!-- Content panel -->
+    <div id="content">
+      <div class="menu-trigger" data-anijs="if: click, do: $toggleClass menu-active, to: .container">
+        <i class="fa fa-bars"></i>
+      </div>
+      <div id="d2" style="align-items: center;justify-content: center;">
+          <h1 id="h1tag" style="color:white;margin: 0 auto;white-space: nowrap;overflow: hidden;"></h1>
+      </div>
+<p></p>
+<p></p>
+   <div id="d1"  class="draggable">
+      <p></p>
+   </div>
+   <div onmouseover="messagebox()" id="d3"  class="draggable">
+      <p></p>
+   </div>
+    </div>
+  </div>
+  <!-- End example -->
+<script src="https://anijs.github.io/lib/anijs/anijs.js"></script>
+<script src="https://anijs.github.io/lib/anijs/helpers/dom/anijs-helper-dom.js"></script>
+    </body>
+  </html>

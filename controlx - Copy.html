@@ -1,0 +1,158 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.interactjs.io/v1.3.4/interact.min.js"></script>
+<script>
+// target elements with the "draggable" class
+interact('.draggable')
+  .draggable({
+    // enable inertial throwing
+    inertia: true,
+    // keep the element within the area of it's parent
+    restrict: {
+      restriction: "parent",
+      endOnly: true,
+      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+    },
+    // enable autoScroll
+    autoScroll: true,
+
+    // call this function on every dragmove event
+    onmove: dragMoveListener,
+    // call this function on every dragend event
+    onend: function (event) {
+      var textEl = event.target.querySelector('p');
+
+      textEl && (textEl.textContent =
+        'moved a distance of '
+        + (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
+                     Math.pow(event.pageY - event.y0, 2) | 0))
+            .toFixed(2) + 'px');
+    }
+  });
+
+var ws = new WebSocket("ws://127.0.0.1:5678/")
+var yValue2 = "";
+var currentvalue = 0;
+ws.onmessage = function (event) {
+ var wholedata = event.data;  
+ alert(event.data)
+ var res2 = wholedata;
+ yValue2 = res2;
+};
+
+
+  function dragMoveListener (event) {
+    var target = event.target,
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+    // translate the element
+    target.style.webkitTransform =
+    target.style.transform =
+      'translate(' + x + 'px, ' + y + 'px)';
+
+    // update the posiion attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+  }
+
+  // this is used later in the resizing and gesture demos
+  window.dragMoveListener = dragMoveListener;
+
+</script>
+<style>
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.container > div {
+  flex: 1; /*grow*/
+}
+.container div{
+    position: relative;
+    width: 500px;
+    height: 360px;
+    background-color: black;
+}
+#d1{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  display : block;
+  width: "25%";
+  height: "25%";
+  margin: 5px auto;
+}
+#d2{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  display : block;
+  width: "25%";
+  height: "25%";
+  margin: 5px auto;
+}
+#d3{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  display : block;
+  width: "25%";
+  height: "25%";
+  margin: 5px auto;
+}
+</style>
+  <head>
+    <title>
+        webpage
+      </title>
+      <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
+      <link rel="stylesheet" href="magic.css">
+</head>
+  <body style="background-color:black;text-align:center">
+
+         <script>
+            var ws = new WebSocket("ws://127.0.0.1:5678/"),
+                messages = document.createElement('ul');
+            ws.onmessage = function (event) {
+                alert(yValue2)
+                if (yValue2 == "0"){
+                 document.getElementById('d1').style.borderColor = "pink"
+                }
+                if (yValue2 == "1"){
+                 document.getElementById('d2').style.borderColor = "pink"
+                }
+                if (yValue2 == "2"){
+                 document.getElementById('d3').style.borderColor = "pink"
+                }
+            };
+            document.body.appendChild(messages);
+        </script>
+
+   <div class="container">
+   <div id="d1"  class="draggable">
+      <p></p>
+   </div>
+   <div id="d2"  class="draggable">
+      <p></p>
+   </div>
+   <div id="d3"  class="draggable">
+      <p></p>
+   </div>
+   <br style="clear: left;" />
+   </div>
+    </body>
+  </html>

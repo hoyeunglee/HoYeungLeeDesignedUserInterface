@@ -1,0 +1,151 @@
+<html>
+<style>
+#di1{
+  background:blue;
+  border-style: solid;
+  border-color:black;
+  font-size:large;
+  height:100px;
+  width:100px;
+  text-align:center;
+  line-height:150px;
+  opacity: 0.9;
+}
+#di2{
+  background:pink;
+  border-style: solid;
+  border-color:black;
+  font-size:large;
+  height:100px;
+  width:100px;
+  text-align:center;
+  line-height:150px;
+  opacity: 0.9;
+}
+#di3{
+  background:yellow;
+  border-style: solid;
+  border-color:black;
+  font-size:large;
+  height:100px;
+  width:100px;
+  text-align:center;
+  line-height:150px;
+  opacity: 0.9;
+}
+#di5{
+  background:green;
+  border-style: solid;
+  border-color:black;
+  font-size:large;
+  height:100px;
+  width:100px;
+  text-align:center;
+  line-height:150px;
+  opacity: 0.9;
+}
+#d3{
+  background:grey;
+  border-color:pink;
+  font-size:large;
+  height:0px;
+  width:0px;
+  top:200px;
+  left:500px;
+  margin-top: -100px;
+  margin-left: 300px;
+  text-align:center;
+  line-height:150px;
+}
+@keyframes createBox {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+function messagebox()
+{
+if (document.getElementById("d3").style.width<800){
+  document.getElementById("d3").style.width="800px";
+  document.getElementById("d3").style.height="200px";
+  document.getElementById("d3").style.margin= "100px";
+  //document.getElementById("d3").style.margin-top= "400px";
+  //document.getElementById("d3").style.margin-left= "300px";
+  //document.getElementById("d3").style.animation="createBox .25s";
+  document.getElementById("d3").style.opacity=0.5;
+  document.getElementById("d3").innerHTML = "Hello message box"
+  document.getElementById("d3").style.transitionDuration = "2s";
+  x = 0;
+}
+}
+    $('#di1').click(function(e) {  
+      $(this).addClass('magictime puffIn');
+      var snd = new Audio("buttonsound.wav");
+      snd.play();
+      messagebox();
+      $(this).delay(1000).queue(function() {  // Wait for 1 second.
+            $(this).removeClass("magictime puffIn").dequeue();
+        });
+    });
+   $('#di2').click(function(e) {  
+      $(this).addClass('magictime puffIn');
+      var snd = new Audio("buttonsound.wav");
+      snd.play();
+      $(this).delay(1000).queue(function() {  // Wait for 1 second.
+            $(this).removeClass("magictime puffIn").dequeue();
+        });
+    });
+   $('#di3').click(function(e) {  
+      $(this).addClass('magictime puffIn');
+      var snd = new Audio("buttonsound.wav");
+      snd.play();
+      $(this).delay(1000).queue(function() {  // Wait for 1 second.
+            $(this).removeClass("magictime puffIn").dequeue();
+        });
+    });
+   $('#di5').click(function(e) {  
+      $(this).addClass('magictime puffIn');
+      var snd = new Audio("buttonsound.wav");
+      snd.play();
+      $(this).delay(1000).queue(function() {  // Wait for 1 second.
+            $(this).removeClass("magictime puffIn").dequeue();
+        });
+    });
+});
+
+</script>
+<head>
+<link rel="stylesheet" href="magic.css">
+</head>
+<body style="background-color:black;text-align:center">
+<table>
+<tr>
+<td>
+<div id="di1"></div>
+</td>
+<td>
+<div  id="di2">
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div   id="di3">
+</div>
+</td>
+<td>
+<div   id="di5">
+</div>
+</td>
+</tr>
+</table>
+<div   id="d3">
+</div>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.interactjs.io/v1.3.4/interact.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js">
+const img = document.getElementById('img');  
+handTrack.load().then(model => { 
+    model.detect(img).then(predictions => {
+      console.log('Predictions: ', predictions) // bbox predictions
+    });
+});
+</script>
+
+<script type='text/javascript' src='../../../Downloads/artyom.js-master/artyom.js-master/build/artyom.window.min.js'></script>
+    <script>
+window.artyom = new Artyom();
+
+artyom.initialize({
+   lang:"en-GB",// More languages are documented in the library
+   continuous:false,//if you have https connection, you can activate continuous mode
+   debug:true,//Show everything in the console
+   listen:true // Start listening when this function is triggered
+});
+var yValue2;
+yValue2 = 0;
+var settings = {
+    indexes:["next","go","back"],
+    continuous:true, // Don't stop never because i have https connection
+    onResult:function(text){
+        console.log(text);
+        var currentvalue = 0;
+        var ycurrentwindow = "0"
+        if(text=="next"){
+           console.log("succeed to add 1");
+           yValue2 = yValue2 + 1
+           if(yValue2==3){
+               yValue2=0;
+           }
+        }
+            messages = document.createElement('ul');
+                if (yValue2 == 0){
+                 document.getElementById('d1').style.borderColor = "pink";
+                 document.getElementById('d2').style.borderColor = "#20C20E";
+                 document.getElementById('d3').style.borderColor = "#20C20E";
+                 ycurrentwindow = yValue2;
+                }
+                if (yValue2 == 1){
+                 document.getElementById('d2').style.borderColor = "pink";
+                 document.getElementById('d1').style.borderColor = "#20C20E";
+                 document.getElementById('d3').style.borderColor = "#20C20E";
+                 ycurrentwindow = yValue2;
+                }
+                if (yValue2 == 2){
+                 document.getElementById('d3').style.borderColor = "pink";
+                 document.getElementById('d1').style.borderColor = "#20C20E";
+                 document.getElementById('d2').style.borderColor = "#20C20E";
+                 ycurrentwindow = yValue2;
+                }
+                if (text=="go" && yValue2 == 0){
+                  change1html();
+                }
+                if (text=="go" && yValue2 == 1){
+                  change2html();
+                }
+                if (text=="go" && yValue2 == 2){
+                  change3html();
+                }
+                if (text=="back" || text=="beck"){
+                  changebackhtml();
+                }
+            document.body.appendChild(messages);
+    },
+    onStart:function(){
+        console.log("Dictation started by the user");
+    },
+    onEnd:function(){
+        alert("Dictation stopped by the user");
+    }
+};
+
+var UserDictation = artyom.newDictation(settings);
+
+// Start listening
+UserDictation.start();
+
+</script>
+
+<script>
+// target elements with the "draggable" class
+interact('.draggable')
+  .draggable({
+    // enable inertial throwing
+    inertia: true,
+    // keep the element within the area of it's parent
+    restrict: {
+      restriction: "parent",
+      endOnly: true,
+      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+    },
+    // enable autoScroll
+    autoScroll: true,
+
+    // call this function on every dragmove event
+    onmove: dragMoveListener,
+    // call this function on every dragend event
+    onend: function (event) {
+      var textEl = event.target.querySelector('p');
+    }
+  });
+
+
+
+  function dragMoveListener (event) {
+    var target = event.target,
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+    // translate the element
+    target.style.webkitTransform =
+    target.style.transform =
+      'translate(' + x + 'px, ' + y + 'px)';
+
+    // update the posiion attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+  }
+
+  // this is used later in the resizing and gesture demos
+  window.dragMoveListener = dragMoveListener;
+
+$.change1 = function() {
+if ($('#d3').width="25%"){
+    $('#d3').animate({width: "0%",height: "0%"});
+}
+if ($('#d2').width="25%"){
+    $('#d2').animate({width: "0%",height: "0%"});
+}
+if ($('container').width<="100%"){
+    $('container').animate({width: "100%",height: "100%"});
+}
+if ($('#d1').width=100){
+    $('#d1').animate({width: "2000px",height: "1000px"});
+}
+};
+
+$.change2 = function() {
+if ($('#d1').width="25%"){
+    $('#d1').animate({width: "0%",height: "0%"});
+}
+if ($('#d3').width="25%"){
+    $('#d3').animate({width: "0%",height: "0%"});
+}
+if ($('container').width<="100%"){
+    $('container').animate({width: "100%",height: "100%"});
+}
+if ($('#d2').width=100){
+    $('#d2').animate({width: "2000px",height: "1000px"});
+}
+};
+
+$.change3 = function() {
+if ($('#d1').width="25%"){
+    $('#d1').animate({width: "0%",height: "0%"});
+}
+if ($('#d2').width="25%"){
+    $('#d2').animate({width: "0%",height: "0%"});
+}
+if ($('container').width<="100%"){
+    $('container').animate({width: "100%",height: "100%"});
+}
+if ($('#d3').width=100){
+    $('#d3').animate({width: "2000px",height: "1000px"});
+}
+};
+
+$.changeback = function() {
+$('container').animate({width: "100%",height: "100%"});
+$('#d1').animate({width: "900px",height: "500px"});
+$('#d2').animate({width: "900px",height: "500px"});
+$('#d3').animate({width: "900px",height: "500px"});
+$('#d1').attr("src","C:\Users\martlee2\Downloads\sample1.jpg");
+$('#d2').attr("src","C:\Users\martlee2\Downloads\sample2.jpg");
+$('#d3').attr("src","C:\Users\martlee2\Downloads\sample3.jpg");
+};
+
+
+function change1html() {
+            $.change1();
+};
+function change2html() {
+            $.change2();
+};
+function change3html() {
+            $.change3();
+};
+function changebackhtml() {
+            $.changeback();
+};
+
+</script>
+<style>
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.container > div {
+  flex: 1; /*grow*/
+}
+.container div{
+    position: relative;
+    width: 900px;
+    height: 500px;
+    background-color: black;
+}
+#d1{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  display : block;
+  width: "25%";
+  height: "25%";
+  margin: 5px auto;
+}
+#d2{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  display : block;
+  width: "25%";
+  height: "25%";
+  margin: 5px auto;
+}
+#d3{
+  background:transparent;
+  border-style: solid;
+  border-color:#20C20E;
+  font-size:large;
+  text-align:center;
+  line-height:150px;
+  user-select: none;
+  display : block;
+  width: "25%";
+  height: "25%";
+  margin: 5px auto;
+}
+</style>
+  <head>
+    <title>
+        webpage
+      </title>
+      <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
+      <link rel="stylesheet" href="magic.css">
+</head>
+  <body style="background-color:black;text-align:center">
+  <img></img>
+
+   <div class="container" style="width:100%; height:90%">
+   <div id="d1"  class="draggable">
+      <p><img src=".\sample1.jpg" style="width:100%; height:90%"  ></a></p>
+   </div>
+   <div id="d2"  class="draggable">
+      <p><img src=".\sample2.png" style="width:100%; height:90%" ></a></p>
+   </div>
+   <div id="d3"  class="draggable">
+      <p><img src=".\sample3.jpg" style="width:100%; height:90%"  ></a></p>
+   </div>
+   <br style="clear: left;" />
+   </div>
+    </body>
+  </html>

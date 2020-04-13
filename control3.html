@@ -1,0 +1,76 @@
+<html>
+<style>
+#di1{
+  background:blue;
+  border-style: solid;
+  border-color:black;
+  font-size:large;
+  height:100px;
+  width:100px;
+  text-align:center;
+  line-height:150px;
+}
+#di2{
+  background:pink;
+  border-style: solid;
+  border-color:black;
+  font-size:large;
+  height:100px;
+  width:100px;
+  text-align:center;
+  line-height:150px;
+}
+#di3{
+  background:yellow;
+  border-style: solid;
+  border-color:black;
+  font-size:large;
+  height:100px;
+  width:100px;
+  text-align:center;
+  line-height:150px;
+}
+#di5{
+  background:green;
+  border-style: solid;
+  border-color:black;
+  font-size:large;
+  height:100px;
+  width:100px;
+  text-align:center;
+  line-height:150px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$('.di1').click(function () {
+  $(this).addClass('magictime puffIn');
+});
+</script>
+<head>
+<link rel="stylesheet" href="magic.css">
+</head>
+<body style="background-color:black;text-align:center">
+<table>
+<tr>
+<td>
+<div id="di1"></div>
+</td>
+<td>
+<div  id="di2">
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div   id="di3">
+</div>
+</td>
+<td>
+<div   id="di5">
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>

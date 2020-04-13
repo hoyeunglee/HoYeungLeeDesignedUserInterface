@@ -1,0 +1,5 @@
+(...).onclick = function(event) {
+    if (event.target.id === 'a') {
+    //Do your stuff
+    }
+}
