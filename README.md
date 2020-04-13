@@ -12,6 +12,10 @@ How to use?
 
 Open controlx2.html
 
+Which industry can buy these user interface to use?
+
+Restaurant, Electronic Devices Company, App Company, Hospital
+
 Copyright is reserved
 
 Designed by Ho Yeung, Lee
